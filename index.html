@@ -32,6 +32,11 @@
     max-width: 80%;
     word-wrap: break-word;
     background: #f1f1f1;
+    font-family: monospace;
+  }
+  #shares div {
+    display: inline-block;
+    width: 20ch;
   }
 </style>
 
@@ -94,8 +99,8 @@
   };
 
   const shareInputChanged = () => {
-    shareInputs = [...shareInputsContainer.childNodes].map(
-      (input) => input.value
+    shareInputs = [...shareInputsContainer.childNodes].map((input) =>
+      input.value.replace(/\s/g, "")
     );
     assembleSecret();
   };
@@ -112,7 +117,7 @@
     sharesContainer.innerHTML = "";
     for (const share of shares) {
       const shareNode = document.createElement("div");
-      shareNode.innerText = share;
+      shareNode.innerText = share.match(/.{1,4}/g).join(" ");
       sharesContainer.appendChild(shareNode);
     }
   };
